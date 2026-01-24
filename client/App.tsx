@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastProvider } from './components/ToastContext';
 import { Layout } from './components/Layout';
@@ -31,7 +32,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/login" element={<Auth />} />
           <Route path="/signup" element={<Auth />} />
-          
+
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="match" element={<Match />} />
@@ -57,6 +58,7 @@ const App: React.FC = () => {
           </Route>
         </Routes>
       </HashRouter>
+      <Analytics />
     </ToastProvider>
   );
 };
