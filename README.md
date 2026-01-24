@@ -2,6 +2,8 @@
 
 SkillSwap is a platform for developers and learners to exchange skills, collaborate on projects, and grow together. It features a modern React frontend and a robust Express backend with real-time capabilities.
 
+🔗 **Live Demo**: [https://skillswapp-pjwj.vercel.app/](https://skillswapp-pjwj.vercel.app/)
+
 ## 🚀 Tech Stack
 
 - **Frontend**: React (Vite), TypeScript, Tailwind CSS, Lucide Icons, Framer Motion
