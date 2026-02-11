@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-export interface Job {
-  id: number;
-=======
 // MongoDB documents use _id, so we support both for compatibility
 export interface Job {
   _id?: string;
   id?: number | string;
->>>>>>> 7fb58eb (Your commit message here)
   title: string;
   company: string;
   logo: string;
@@ -15,17 +10,6 @@ export interface Job {
   salary: string;
   tags: string[];
   active?: boolean;
-<<<<<<< HEAD
-}
-
-export interface UserProfile {
-  id: number;
-  name: string;
-  role: string;
-  skill: string;
-  rating: number;
-  image: string;
-=======
   applicants?: string[];
 }
 
@@ -45,7 +29,6 @@ export interface UserProfile {
   twitter?: string;
   rating?: number;
   image?: string;
->>>>>>> 7fb58eb (Your commit message here)
   status?: 'Active' | 'Suspended' | 'Online' | 'Offline';
 }
 
@@ -58,27 +41,18 @@ export interface Message {
 }
 
 export interface Quiz {
-<<<<<<< HEAD
-  id: number;
-  title: string;
-  topic: string;
-  questions: number;
-=======
   _id?: string;
   id?: number | string;
   title: string;
   topic: string;
   questionsCount?: number;
   questions?: QuizQuestion[];
->>>>>>> 7fb58eb (Your commit message here)
   duration: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   streak?: number;
   completed?: number;
   average?: number;
 }
-<<<<<<< HEAD
-=======
 
 export interface QuizQuestion {
   question: string;
@@ -121,4 +95,3 @@ export interface ProfileStats {
   quizzesCompleted: number;
   avgQuizScore: number;
 }
->>>>>>> 7fb58eb (Your commit message here)

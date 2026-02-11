@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "skillswap",
   "private": true,
   "version": "0.0.0",
@@ -30,16 +29,3 @@
     "vite": "^6.2.0"
   }
 }
-=======
-    "name": "skillswap-root",
-    "private": true,
-    "scripts": {
-        "install:all": "concurrently \"npm install --prefix client\" \"npm install --prefix server\"",
-        "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
-        "build": "npm run build --prefix client"
-    },
-    "devDependencies": {
-        "concurrently": "^9.1.2"
-    }
-}
->>>>>>> 7fb58eb (Your commit message here)

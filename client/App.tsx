@@ -1,15 +1,10 @@
 import React from 'react';
-<<<<<<< HEAD
 import { Analytics } from '@vercel/analytics/react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ToastProvider } from './components/ToastContext';
-=======
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastProvider } from './components/ToastContext';
 import { AuthProvider } from './components/AuthContext';
 import { SocketProvider } from './components/SocketContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
->>>>>>> 7fb58eb (Your commit message here)
 import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
 import { Jobs } from './pages/Jobs';
@@ -35,41 +30,6 @@ import { Lesson } from './pages/Lesson';
 
 const App: React.FC = () => {
   return (
-<<<<<<< HEAD
-    <ToastProvider>
-      <HashRouter>
-        <Routes>
-          <Route path="/login" element={<Auth />} />
-          <Route path="/signup" element={<Auth />} />
-
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="match" element={<Match />} />
-            <Route path="tutor" element={<AITutor />} />
-            <Route path="wars" element={<SkillWars />} />
-            <Route path="collaborate" element={<Collaborate />} />
-            <Route path="community" element={<Community />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="jobs" element={<Jobs />} />
-            <Route path="skills" element={<Skills />} />
-            <Route path="roadmap" element={<Roadmap />} />
-            <Route path="live" element={<LiveRooms />} />
-            <Route path="shop" element={<Shop />} />
-            <Route path="hackathons" element={<Hackathons />} />
-            <Route path="courses" element={<Courses />} />
-            <Route path="lesson/:id" element={<Lesson />} />
-            <Route path="quizzes" element={<Quizzes />} />
-            <Route path="quiz/:id" element={<QuizRunner />} />
-            <Route path="recruiter" element={<Recruiter />} />
-            <Route path="messages" element={<Messages />} />
-            <Route path="admin" element={<Admin />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
-      </HashRouter>
-      <Analytics />
-    </ToastProvider>
-=======
     <AuthProvider>
       <SocketProvider>
         <ToastProvider>
@@ -103,10 +63,10 @@ const App: React.FC = () => {
               </Route>
             </Routes>
           </HashRouter>
+          <Analytics />
         </ToastProvider>
       </SocketProvider>
     </AuthProvider>
->>>>>>> 7fb58eb (Your commit message here)
   );
 };
 
