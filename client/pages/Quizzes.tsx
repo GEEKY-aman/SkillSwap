@@ -88,34 +88,10 @@ export const Quizzes: React.FC = () => {
             </div>
           ))
         ) : (
-          // Fallback mock data
-          [
-            { title: "React Native Basics", topic: "Mobile Dev", q: 15, min: "20m", diff: "Easy" },
-            { title: "Python Data Structures", topic: "Python", q: 30, min: "45m", diff: "Medium" }
-          ].map((quiz, idx) => (
-            <div key={idx} className="bg-slate-800 rounded-2xl p-6 border border-slate-700 relative overflow-hidden">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-bold mb-1">{quiz.title}</h3>
-                  <span className="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded-md">Topic: {quiz.topic}</span>
-                </div>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-slate-700 text-green-400">
-                  {quiz.diff}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-6 mb-8 text-sm text-slate-400">
-                <span>{quiz.q} Questions</span>
-                <span className="flex items-center gap-1"><Timer size={14} /> {quiz.min}</span>
-              </div>
-
-              <button
-                className="w-full bg-[#a3e635] text-slate-900 font-bold py-3 rounded-xl hover:bg-[#bef264] transition-colors"
-              >
-                Start Quiz
-              </button>
-            </div>
-          ))
+          <div className="col-span-full bg-slate-800 border border-slate-700 rounded-2xl p-12 text-center">
+            <p className="text-slate-400 text-lg">No quizzes available yet.</p>
+            <p className="text-slate-500 text-sm mt-2">Check back later for new quizzes!</p>
+          </div>
         )}
       </div>
     </div>

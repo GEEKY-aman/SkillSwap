@@ -29,9 +29,19 @@ export const Jobs: React.FC = () => {
     fetchJobs();
   }, [addToast]);
 
-  const handleApply = (jobTitle: string) => {
-    // In a real app, this would call jobService.applyJob(id)
-    addToast(`Successfully applied to ${jobTitle}!`, 'success');
+  const handleApply = async (jobId: string, jobTitle: string) => {
+    try {
+      await jobService.applyToJob(jobId);
+      addToast(`Successfully applied to ${jobTitle}!`, 'success');
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        addToast('Please login to apply for jobs', 'error');
+      } else if (error.response?.data?.message) {
+        addToast(error.response.data.message, 'error');
+      } else {
+        addToast('Failed to apply. Please try again.', 'error');
+      }
+    }
   };
 
   if (loading) {
@@ -145,7 +155,7 @@ export const Jobs: React.FC = () => {
                     ))}
                   </div>
                   <button
-                    onClick={() => handleApply(job.title)}
+                    onClick={() => handleApply(String(job._id || job.id), job.title)}
                     className="w-full bg-slate-700 hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition-colors"
                   >
                     Apply Now
@@ -188,7 +198,7 @@ export const Jobs: React.FC = () => {
                   <div className="flex flex-col items-end gap-3 flex-shrink-0">
                     <span className="text-green-400 font-bold">{job.salary}</span>
                     <button
-                      onClick={() => handleApply(job.title)}
+                      onClick={() => handleApply(String(job._id || job.id), job.title)}
                       className="bg-[#a3e635] text-slate-900 px-6 py-2 rounded-lg font-bold hover:bg-[#bef264] transition-colors"
                     >
                       Apply

@@ -27,8 +27,23 @@ export const Hackathons: React.FC = () => {
     fetchHackathons();
   }, [addToast]);
 
-  const handleRegister = () => {
-    addToast("Registration Successful! Check your email for details.", "success");
+  const handleRegister = async (hackathonId?: string) => {
+    if (!hackathonId) {
+      addToast("Registration Successful! Check your email for details.", "success");
+      return;
+    }
+    try {
+      await hackathonService.joinHackathon(hackathonId);
+      addToast("Registration Successful! Check your email for details.", "success");
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        addToast('Please login to register', 'error');
+      } else if (error.response?.data?.message) {
+        addToast(error.response.data.message, 'error');
+      } else {
+        addToast('Registration failed. Please try again.', 'error');
+      }
+    }
   };
 
   const generateTeam = () => {
@@ -120,7 +135,7 @@ export const Hackathons: React.FC = () => {
               </div>
 
               <button
-                onClick={handleRegister}
+                onClick={() => handleRegister()}
                 className="bg-white text-slate-900 px-8 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)]"
               >
                 Register Now
@@ -159,7 +174,7 @@ export const Hackathons: React.FC = () => {
                     </div>
 
                     <button
-                      onClick={handleRegister}
+                      onClick={() => handleRegister(hackathon._id)}
                       className="w-full bg-[#a3e635] text-slate-900 font-bold py-2 rounded-lg hover:bg-[#bef264] transition-colors"
                     >
                       Register
@@ -167,39 +182,10 @@ export const Hackathons: React.FC = () => {
                   </div>
                 ))
               ) : (
-                // Fallback mock data if API returns empty (since we just created DB)
-                [1, 2, 3].map((i) => (
-                  <div key={i} className="bg-slate-800 border border-slate-700 rounded-2xl p-6 hover:border-blue-500/50 transition-all hover:translate-y-[-4px] flex flex-col">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-2xl">
-                        {i === 1 ? '🤖' : i === 2 ? '🌍' : '🎮'}
-                      </div>
-                      <span className="bg-blue-500/10 text-blue-400 text-xs font-bold px-2 py-1 rounded">Upcoming</span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{i === 1 ? 'AI Challenge' : i === 2 ? 'Climate Fix' : 'Game Jam'}</h3>
-                    <p className="text-slate-400 text-sm mb-4 flex-1">
-                      Build solutions for {i === 1 ? 'automation' : i === 2 ? 'sustainability' : 'entertainment'} using modern tech stacks.
-                    </p>
-
-                    <div className="grid grid-cols-2 gap-4 mb-6 text-sm border-t border-slate-700 pt-4">
-                      <div>
-                        <p className="text-slate-500 text-xs">Prize Pool</p>
-                        <p className="font-bold text-green-400">$10,000</p>
-                      </div>
-                      <div>
-                        <p className="text-slate-500 text-xs">Date</p>
-                        <p className="font-bold text-slate-300">May 20</p>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={handleRegister}
-                      className="w-full bg-[#a3e635] text-slate-900 font-bold py-2 rounded-lg hover:bg-[#bef264] transition-colors"
-                    >
-                      Register
-                    </button>
-                  </div>
-                ))
+                <div className="col-span-full bg-slate-800 border border-slate-700 rounded-2xl p-12 text-center">
+                  <p className="text-slate-400 text-lg">No hackathons available yet.</p>
+                  <p className="text-slate-500 text-sm mt-2">Check back later for new hackathons!</p>
+                </div>
               )}
             </div>
           </div>

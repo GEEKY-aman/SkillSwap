@@ -58,7 +58,9 @@ const courses = [
         students: 1200,
         price: "$49.99",
         image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        tags: ["Mobile", "React"]
+        tags: ["Mobile", "React"],
+        level: "Intermediate",
+        hours: "12h"
     },
     {
         title: "Advanced CSS Grid & Flexbox",
@@ -67,7 +69,9 @@ const courses = [
         students: 3500,
         price: "$29.99",
         image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        tags: ["CSS", "Frontend"]
+        tags: ["CSS", "Frontend"],
+        level: "Beginner",
+        hours: "8h"
     },
     {
         title: "Python Data Structures",
@@ -76,7 +80,9 @@ const courses = [
         students: 8000,
         price: "$59.99",
         image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-        tags: ["Python", "CS"]
+        tags: ["Python", "CS"],
+        level: "Advanced",
+        hours: "15h"
     }
 ];
 
@@ -87,7 +93,8 @@ const hackathons = [
         date: "Mar 15 - Mar 17",
         participants: 2500,
         status: "Upcoming",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+        tags: ["AI", "Machine Learning"]
     },
     {
         title: "Climate Fix Challenge",
@@ -95,7 +102,8 @@ const hackathons = [
         date: "Apr 22",
         participants: 1200,
         status: "Live",
-        image: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        image: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        tags: ["Sustainability", "IoT"]
     },
     {
         title: "Game Jam 2025",
@@ -103,7 +111,8 @@ const hackathons = [
         date: "May 20",
         participants: 5000,
         status: "Upcoming",
-        image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        tags: ["Gaming", "Unity"]
     }
 ];
 
@@ -111,23 +120,138 @@ const quizzes = [
     {
         title: "React Native Basics",
         topic: "Mobile Dev",
-        questionsCount: 15,
-        duration: "20m",
-        difficulty: "Easy"
+        questionsCount: 5,
+        duration: "10m",
+        difficulty: "Easy",
+        questions: [
+            {
+                question: "What is the core component in React Native for text display?",
+                options: ["<Text>", "<div>", "<Label>", "<span>"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which command creates a new React Native project?",
+                options: ["npm create react-app", "npx react-native init", "npm init native", "create-native-app"],
+                correctAnswer: 1
+            },
+            {
+                question: "React Native uses which language for styling?",
+                options: ["CSS", "SCSS", "JavaScript objects", "XML"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the equivalent of 'div' in React Native?",
+                options: ["<Container>", "<View>", "<Box>", "<Section>"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which hook manages state in functional components?",
+                options: ["useEffect", "useState", "useReducer", "useContext"],
+                correctAnswer: 1
+            }
+        ]
     },
     {
         title: "Python Data Structures",
-        topic: "Python Structures",
-        questionsCount: 30,
-        duration: "45m",
-        difficulty: "Medium"
+        topic: "Python",
+        questionsCount: 5,
+        duration: "15m",
+        difficulty: "Medium",
+        questions: [
+            {
+                question: "Which data structure uses LIFO (Last In First Out)?",
+                options: ["Queue", "Stack", "List", "Dictionary"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the time complexity of accessing an element in a Python list by index?",
+                options: ["O(n)", "O(1)", "O(log n)", "O(n²)"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which method adds an element to the end of a list?",
+                options: ["add()", "insert()", "append()", "push()"],
+                correctAnswer: 2
+            },
+            {
+                question: "Python dictionaries are implemented using which data structure?",
+                options: ["Arrays", "Linked Lists", "Hash Tables", "Trees"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the output of len({1, 2, 2, 3, 3, 3})?",
+                options: ["6", "3", "4", "Error"],
+                correctAnswer: 1
+            }
+        ]
     },
     {
         title: "Advanced CSS Grid",
         topic: "Frontend",
-        questionsCount: 25,
-        duration: "40m",
-        difficulty: "Easy"
+        questionsCount: 5,
+        duration: "10m",
+        difficulty: "Easy",
+        questions: [
+            {
+                question: "Which property defines the number of columns in CSS Grid?",
+                options: ["grid-columns", "grid-template-columns", "columns", "grid-col"],
+                correctAnswer: 1
+            },
+            {
+                question: "What does 'fr' unit stand for in CSS Grid?",
+                options: ["Frame", "Fraction", "Frequency", "Free"],
+                correctAnswer: 1
+            },
+            {
+                question: "How do you make a grid item span 2 columns?",
+                options: ["span: 2", "grid-column: span 2", "column-span: 2", "width: 2col"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which property controls gap between grid items?",
+                options: ["margin", "gap", "spacing", "padding"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the shorthand for grid-row-start and grid-row-end?",
+                options: ["grid-row", "row", "grid-rows", "row-span"],
+                correctAnswer: 0
+            }
+        ]
+    },
+    {
+        title: "JavaScript Fundamentals",
+        topic: "JavaScript",
+        questionsCount: 5,
+        duration: "12m",
+        difficulty: "Medium",
+        questions: [
+            {
+                question: "What is the output of typeof null?",
+                options: ["null", "undefined", "object", "boolean"],
+                correctAnswer: 2
+            },
+            {
+                question: "Which method removes the last element from an array?",
+                options: ["shift()", "pop()", "splice()", "slice()"],
+                correctAnswer: 1
+            },
+            {
+                question: "What does === compare?",
+                options: ["Value only", "Type only", "Value and type", "Reference only"],
+                correctAnswer: 2
+            },
+            {
+                question: "Which keyword declares a block-scoped variable?",
+                options: ["var", "let", "const", "Both let and const"],
+                correctAnswer: 3
+            },
+            {
+                question: "What is a closure in JavaScript?",
+                options: ["A way to close browser tabs", "A function with access to its outer scope", "A method to end loops", "A type of error"],
+                correctAnswer: 1
+            }
+        ]
     }
 ];
 
@@ -140,7 +264,7 @@ const seed = async () => {
             name: 'Seed User',
             email: 'seed@example.com',
             password: 'password123',
-            role: 'admin' // Ensure role allows creating content if needed
+            role: 'admin'
         };
 
         let authRes = await fetch(`${API_URL}/auth/login`, {
@@ -202,7 +326,7 @@ const seed = async () => {
             if (!res.ok) console.error(`Failed to seed hackathon: ${res.status} ${res.statusText}`, await res.text());
         }
 
-        console.log('Seeding Quizzes...');
+        console.log('Seeding Quizzes with questions...');
         for (const quiz of quizzes) {
             const res = await fetch(`${API_URL}/quizzes`, {
                 method: 'POST',
@@ -219,4 +343,3 @@ const seed = async () => {
 };
 
 seed();
-

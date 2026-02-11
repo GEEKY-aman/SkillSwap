@@ -3,10 +3,12 @@ import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../src/services/api';
 import { useToast } from '../components/ToastContext';
+import { useAuth } from '../components/AuthContext';
 
 export const Auth: React.FC = () => {
   const navigate = useNavigate();
   const { addToast } = useToast();
+  const { login } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -33,8 +35,8 @@ export const Auth: React.FC = () => {
         response = await authService.register(formData);
       }
 
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data));
+      // Use AuthContext login instead of manually writing to localStorage
+      login(response.data, response.data.token);
 
       addToast(isLogin ? 'Login successful!' : 'Account created successfully!', 'success');
       navigate('/');

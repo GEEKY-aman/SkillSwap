@@ -25,8 +25,19 @@ export const Courses: React.FC = () => {
     fetchCourses();
   }, [addToast]);
 
-  const handleEnroll = (title: string) => {
-    addToast(`Enrolled in ${title}!`, 'success');
+  const handleEnroll = async (courseId: string, title: string) => {
+    try {
+      await courseService.enrollInCourse(courseId);
+      addToast(`Enrolled in ${title}!`, 'success');
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        addToast('Please login to enroll', 'error');
+      } else if (error.response?.data?.message) {
+        addToast(error.response.data.message, 'error');
+      } else {
+        addToast('Enrollment failed. Please try again.', 'error');
+      }
+    }
   };
 
   const handleResume = (id: number) => {
@@ -146,7 +157,7 @@ export const Courses: React.FC = () => {
                 </div>
 
                 <button
-                  onClick={() => handleEnroll(course.title)}
+                  onClick={() => handleEnroll(course._id, course.title)}
                   className="w-full mt-2 bg-slate-700/50 hover:bg-blue-600 text-slate-300 hover:text-white py-2.5 rounded-xl text-sm font-bold transition-all border border-slate-700 hover:border-blue-500"
                 >
                   Enroll Now
@@ -155,12 +166,10 @@ export const Courses: React.FC = () => {
             </div>
           ))
         ) : (
-          // Fallback mock data
-          [1, 2, 3].map((i) => (
-            <div key={i} className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden p-6 text-center">
-              <p className="text-slate-400">No courses available yet.</p>
-            </div>
-          ))
+          <div className="col-span-full bg-slate-800 border border-slate-700 rounded-2xl p-12 text-center">
+            <p className="text-slate-400 text-lg">No courses available yet.</p>
+            <p className="text-slate-500 text-sm mt-2">Check back later for new courses!</p>
+          </div>
         )}
       </div>
     </div>

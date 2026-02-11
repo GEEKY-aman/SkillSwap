@@ -21,6 +21,21 @@ const userSchema = new mongoose.Schema({
     },
     skills: [String],
     avatar: String,
+    bio: String,
+    location: String,
+    website: String,
+    github: String,
+    linkedin: String,
+    twitter: String,
+    // Gamification
+    coins: { type: Number, default: 1000 },
+    streak: { type: Number, default: 0 },
+    xp: { type: Number, default: 0 },
+    lastLoginDate: Date,
+    // Skill Match
+    offering: String,
+    seeking: String,
+    status: { type: String, enum: ['Active', 'Suspended'], default: 'Active' },
 }, {
     timestamps: true,
 });

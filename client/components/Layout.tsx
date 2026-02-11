@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NavLink, Outlet, useLocation, Link } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Briefcase, 
-  Repeat, 
-  Calendar, 
-  BookOpen, 
-  MessageSquare, 
-  Users, 
-  ShieldCheck, 
-  Search, 
-  Bell, 
+import { NavLink, Outlet, useLocation, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
+import {
+  LayoutDashboard,
+  Briefcase,
+  Repeat,
+  Calendar,
+  BookOpen,
+  MessageSquare,
+  Users,
+  ShieldCheck,
+  Search,
+  Bell,
   Menu,
   Globe,
   LogOut,
@@ -30,6 +31,8 @@ export const Layout: React.FC = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const navItems = [
     { icon: <LayoutDashboard size={20} />, label: 'Home', path: '/' },
@@ -51,9 +54,7 @@ export const Layout: React.FC = () => {
   ];
 
   const notifications = [
-    { id: 1, text: "Sarah Lee accepted your skill swap request", time: "2 min ago", unread: true },
-    { id: 2, text: "New React Job posted by Spotify", time: "1 hour ago", unread: false },
-    { id: 3, text: "Your 'Python Basics' quiz score is top 5%!", time: "3 hours ago", unread: true },
+    { id: 1, text: "Welcome to SkillSwap! Complete your profile to earn 100 coins.", time: "Just now", unread: true },
   ];
 
   // Close notifications when clicking outside
@@ -76,11 +77,16 @@ export const Layout: React.FC = () => {
     return item ? item.label : path.replace('/', '').charAt(0).toUpperCase() + path.slice(2);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <div className="flex h-screen bg-slate-900 text-slate-100 overflow-hidden">
       {/* Mobile Sidebar Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -110,8 +116,8 @@ export const Layout: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) => `
                   flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200
-                  ${isActive 
-                    ? 'bg-blue-600/10 text-blue-400 font-medium border-l-4 border-blue-500' 
+                  ${isActive
+                    ? 'bg-blue-600/10 text-blue-400 font-medium border-l-4 border-blue-500'
                     : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}
                 `}
               >
@@ -124,10 +130,14 @@ export const Layout: React.FC = () => {
           <div className="mt-auto pt-4 border-t border-slate-800">
             <Link to="/profile" className="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-200 cursor-pointer group">
               <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden border border-transparent group-hover:border-blue-400 transition-colors">
-                <img src="https://picsum.photos/100/100" alt="User" />
+                {user?.avatar ? (
+                  <img src={user.avatar} alt={user.name} />
+                ) : (
+                  <span className="text-sm font-bold text-blue-400">{user?.name?.charAt(0) || '?'}</span>
+                )}
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-white group-hover:text-blue-400 transition-colors">Alex Johnson</p>
+                <p className="text-sm font-medium text-white group-hover:text-blue-400 transition-colors">{user?.name || 'User'}</p>
                 <p className="text-xs text-slate-500">View Profile</p>
               </div>
               <Settings size={16} className="text-slate-600 group-hover:text-slate-400" />
@@ -141,7 +151,7 @@ export const Layout: React.FC = () => {
         {/* Header */}
         <header className="h-16 border-b border-slate-800 flex items-center justify-between px-4 lg:px-8 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-10">
           <div className="flex items-center gap-4">
-            <button 
+            <button
               onClick={() => setIsMobileMenuOpen(true)}
               className="lg:hidden text-slate-400 hover:text-white"
             >
@@ -153,24 +163,24 @@ export const Layout: React.FC = () => {
           <div className="flex-1 max-w-md mx-4 hidden sm:block">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-              <input 
-                type="text" 
-                placeholder="Search anything..." 
+              <input
+                type="text"
+                placeholder="Search anything..."
                 className="w-full bg-slate-800/50 border border-slate-700 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-blue-500 text-slate-200 placeholder-slate-500"
               />
             </div>
           </div>
 
           <div className="flex items-center gap-4 relative">
-            
+
             {/* Coin Balance */}
             <div className="hidden md:flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 px-3 py-1.5 rounded-full">
               <Coins size={16} className="text-yellow-400" />
-              <span className="text-yellow-400 font-bold text-sm">1,250</span>
+              <span className="text-yellow-400 font-bold text-sm">{user?.coins?.toLocaleString() || '0'}</span>
             </div>
 
             <div ref={notifRef} className="relative">
-              <button 
+              <button
                 onClick={() => setShowNotifications(!showNotifications)}
                 className="relative text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-slate-800"
               >
@@ -199,10 +209,10 @@ export const Layout: React.FC = () => {
                 </div>
               )}
             </div>
-            
-            <Link to="/login" className="hidden md:flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+
+            <button onClick={handleLogout} className="hidden md:flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
               <LogOut size={20} />
-            </Link>
+            </button>
           </div>
         </header>
 
